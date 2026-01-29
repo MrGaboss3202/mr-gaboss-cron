@@ -1,20 +1,25 @@
-name: Weekly inactive customers report
+name: Inactive report
 
 on:
-  schedule:
-    - cron: "0 15 * * 1"   # Lunes 15:00 UTC
   workflow_dispatch:
+  schedule:
+    - cron: "0 15 * * 1" # Lunes 15:00 UTC (ajustable)
 
 jobs:
   run:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm i @supabase/supabase-js
-      - run: node scripts/inactive-report.mjs
+
+      - name: Run inactive report
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: node scripts/inactive-report.mjs
