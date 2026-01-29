@@ -3,10 +3,10 @@ name: Inactive report
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 15 * * 1" # Lunes 15:00 UTC (ajustable)
+    - cron: "0 15 * * 1"  # Lunes 15:00 UTC (≈ 9am CDMX)
 
 jobs:
-  run:
+  inactive_report:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,6 +17,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+
+      - name: Install deps
+        run: npm ci
 
       - name: Run inactive report
         env:
