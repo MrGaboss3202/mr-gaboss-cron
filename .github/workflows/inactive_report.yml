@@ -19,7 +19,7 @@ jobs:
           node-version: 20
 
       - name: Install deps
-        run: npm install
+        run: npm ci
 
       - name: Run inactive report
         env:
